@@ -1,0 +1,1 @@
+export const SITENAME = "Course Map";

@@ -1,0 +1,8 @@
+.custom-nav-link {
+    margin-right: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+.custom-nav-link:hover {
+    background-color: #b7b7b7;
+  }
