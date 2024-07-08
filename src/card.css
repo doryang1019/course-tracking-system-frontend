@@ -1,0 +1,8 @@
+.course-card{
+    font-size: 24px;
+    width: 18rem;
+}
+
+.course-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
