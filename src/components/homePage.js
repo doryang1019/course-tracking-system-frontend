@@ -33,7 +33,4 @@ const FeatureCards = () => {
         </Card>
     );
 }
-
-
-
 export default HomePage;

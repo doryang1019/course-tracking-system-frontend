@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.horizontal-scroll {
+  overflow-x: auto;
+}
+
+.horizontal-scroll > .row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.container {
+  /* max-width: ''; */
+}
