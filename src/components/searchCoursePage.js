@@ -32,7 +32,7 @@ const SearchCourse = () => {
             </option>
         ))
     );
-    
+
     const handleChange = (e) => {
         setSelectedId(e.target.value)
     }
@@ -43,7 +43,7 @@ const SearchCourse = () => {
                 {coursesData.map(
                     departmentCourses => {
                         return (
-                            <Container as={Col} className='d-inline-block border border-warning m-3' key={departmentCourses[0].id}>
+                            <Container as={Col} className='d-inline-block' key={departmentCourses[0].id}>
                                 <CourseTree
                                     id={departmentCourses[0].id}
                                     courseTreeById={coursesData}
@@ -103,7 +103,7 @@ const SearchCourse = () => {
                     />
                 </Form>
             </Container>
-
+            
             <br />
             <Container className="horizontal-scroll">
                 <Row style={{ display: 'inline-flex', width: 'auto' }}>

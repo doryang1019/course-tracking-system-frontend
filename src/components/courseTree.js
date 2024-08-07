@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import Card from 'react-bootstrap/Card'
-import Collapse from 'react-bootstrap/Collapse'
-import '../card.css'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
+import Modal from 'react-bootstrap/Modal'
+import '../card.css'
+
 const CourseTree = ({ id, courseTreeById }) => {
     const getCourseById = (id) => {
         for (const departmentCourses of courseTreeById) {
@@ -20,25 +21,29 @@ const CourseTree = ({ id, courseTreeById }) => {
     return (
         <>
             <Col className="d-flex justify-content-center align-items-center mb-4">
-                <Card className='course-card m-3' border='secondary' onClick={() => setOpen(!open)}>
-                    <Card.Header>{course.department} {course.code}</Card.Header>
+                <Card className='circle-card' border='secondary' onClick={() => setOpen(!open)}>
                     <Card.Body>
-                        <Card.Title>{course.title}</Card.Title>
-                        <Card.Text>
-                            Click to learn more
-                        </Card.Text>
+                        {course.code}
                     </Card.Body>
-                    <Collapse in={open}>
-                        <Card.Footer id={id}>
-                            {course.description}
-                        </Card.Footer>
-                    </Collapse>
                 </Card>
             </Col>
+
+            <Modal show={open} onHide={() => setOpen(!open)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>{course.code} - {course.title}</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    Description: {course.description}
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <small>Offer Terms: {course.terms} fall</small>
+                </Modal.Footer>
+            </Modal>
+
             {childIds.length > 1 ? (
                 <Container className="d-flex mb-4" style={{ maxWidth: '' }}>
-                    {childIds.length > 0 && (
-                        <>
                             {childIds.map(childId => (
                                 <Container key={childId} style={{ maxWidth: '' }}>
                                     <CourseTree
@@ -47,18 +52,16 @@ const CourseTree = ({ id, courseTreeById }) => {
                                     />
                                 </Container>
                             ))}
-                        </>
-                    )}
                 </Container>
             ) : (
                 childIds.length > 0 && (
                     <>
                         {childIds.map(childId => (
-                                <CourseTree
-                                    key={childId}
-                                    id={childId}
-                                    courseTreeById={courseTreeById}
-                                />
+                            <CourseTree
+                                key={childId}
+                                id={childId}
+                                courseTreeById={courseTreeById}
+                            />
                         ))}
                     </>
                 )

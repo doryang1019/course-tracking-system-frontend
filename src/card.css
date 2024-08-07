@@ -1,9 +1,27 @@
-.course-card{
-    font-size: 24px;
+.circle-card{
+    font-size: 16px;
     width: 18rem;
 }
 
-.course-card:hover {
+.circle-card:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.col .circle-card {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
