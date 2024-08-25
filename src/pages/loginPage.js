@@ -9,21 +9,13 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react'
 
 const LoginPage = () => {
-    const [userLogin, setUserLogin] = useState({
-        username: '',
-        password: ''
-    })
-
-    const handleChange = (e) => {
-        setUserLogin((prevData) => ({
-            ...prevData,
-            [e.target.name]: e.target.value
-        }));
-    }
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleLogin = (e) => {
         e.preventDefault();
-        console.log(userLogin)
+        console.log(username)
+        console.log(password)
     }
     return (
         <Container className="d-flex justify-content-center align-items-center my-container">
@@ -35,7 +27,12 @@ const LoginPage = () => {
                             <Form.Label as={Col} sm={2}>Email</Form.Label>
                             <Col>
                                 <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
-                                    <Form.Control type="email" name='username' value={userLogin.username} placeholder="Email" onChange={handleChange} />
+                                    <Form.Control
+                                        type="email"
+                                        name='username'
+                                        value={username}
+                                        placeholder="Email"
+                                        onChange={e => setUsername(e.target.value)} />
                                 </FloatingLabel>
                             </Col>
                         </Form.Group>
@@ -46,7 +43,12 @@ const LoginPage = () => {
                             </Form.Label>
                             <Col>
                                 <FloatingLabel controlId="floatingPassword" label="Password">
-                                    <Form.Control type="password" name='password' value={userLogin.password} placeholder="Password" onChange={handleChange} />
+                                    <Form.Control
+                                        type="password"
+                                        name='password'
+                                        value={password}
+                                        placeholder="Password"
+                                        onChange={ e => setPassword(e.target.value)} />
                                 </FloatingLabel>
                             </Col>
                         </Form.Group>

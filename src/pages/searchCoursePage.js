@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
-import CourseTree from './courseTree'
+import CourseTree from '../components/courseTree'
 import Container from 'react-bootstrap/Container'
-import SelectFormGroup from './selectFormGroup'
+import SelectFormGroup from '../components/selectFormGroup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import axios from 'axios'
 
 const SearchCourse = () => {
     const [coursesData, setCoursesData] = useState([]);
-    const [selectedId, setSelectedId] = useState('');
+    const [selectedInstitution, setSelectedInstitution] = useState('');
+    const [selectedDepartment, setSelectedDepartment] = useState('');
+    const [selectedProgram, setSelectedProgram] = useState('');
+    const [selectedCourseId, setSelectedCourseId] = useState('');
     useEffect(() => {
         const loadAllCoursesInfo = async () => {
             const response = await axios.get('courses');
@@ -18,11 +21,12 @@ const SearchCourse = () => {
         }
         loadAllCoursesInfo();
     }, [])
-    //need api to get a list of department from selected institution
+    
+    if(selectedInstitution){} //get a list of department
     const listInstitution = <option value="DouglasCollege">Douglas College</option>
-    //need api to get a list of program of selected department
+    if(selectedDepartment){} // get a list of program
     const listDepartment = <option value='CBA'>Commerce and Business Administration</option>
-    //need one api to get a list of course id
+    if(selectedProgram){} // get a list of course by program
     const listProgram = <option value='PBD-CSIS'>PBD-Computer Studies and Information Systems</option>
 
     const listCourse = coursesData.flatMap(programCourses =>
@@ -32,10 +36,6 @@ const SearchCourse = () => {
             </option>
         ))
     );
-
-    const handleChange = (e) => {
-        setSelectedId(e.target.value)
-    }
 
     const allCourses = () => {
         return (
@@ -60,7 +60,7 @@ const SearchCourse = () => {
         return (
             <Container className='d-inline-block justify-content-center align-items-center'>
                 <CourseTree
-                    id={selectedId}
+                    id={selectedCourseId}
                     courseTreeById={coursesData}
                 />
             </Container>
@@ -77,28 +77,28 @@ const SearchCourse = () => {
                         controlId='institution'
                         label='Institution'
                         name='institution'
-                        onChange={handleChange}
+                        onChange={e => setSelectedInstitution(e.target.value)}
                         options={listInstitution}
                     />
                     <SelectFormGroup
                         controlId='department'
                         label='Department'
                         name='department'
-                        onChange={handleChange}
+                        onChange={e=>setSelectedDepartment(e.target.value)}
                         options={listDepartment}
                     />
                     <SelectFormGroup
                         controlId='program'
                         label='Program'
                         name='program'
-                        onChange={handleChange}
+                        onChange={e=>setSelectedProgram(e.target.value)}
                         options={listProgram}
                     />
                     <SelectFormGroup
                         controlId="course"
                         label="Course"
                         name='courseId'
-                        onChange={handleChange}
+                        onChange={e=>setSelectedCourseId(e.target.value)}
                         options={listCourse}
                     />
                 </Form>
@@ -107,7 +107,7 @@ const SearchCourse = () => {
             <br />
             <Container className="horizontal-scroll">
                 <Row style={{ display: 'inline-flex', width: 'auto' }}>
-                    {selectedId === "" ? allCourses() : aCourse()}
+                    {selectedCourseId === "" ? allCourses() : aCourse()}
                 </Row>
             </Container>
         </>
