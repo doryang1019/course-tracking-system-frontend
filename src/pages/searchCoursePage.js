@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col'
 import axios from 'axios'
 
 const SearchCourse = () => {
+    const [courseListOption, setCourseListOption] = useState([]);
     const [coursesData, setCoursesData] = useState([]);
     const [selectedInstitution, setSelectedInstitution] = useState('');
     const [selectedDepartment, setSelectedDepartment] = useState('');
@@ -19,7 +20,14 @@ const SearchCourse = () => {
             const coursesInfo = response.data;
             setCoursesData(coursesInfo);
         }
+        const loadCoursesList = async () => {
+            const res = await axios.get('courses/list');
+            const listData = res.data;
+            setCourseListOption(listData);
+        }
+
         loadAllCoursesInfo();
+        loadCoursesList();
     }, [])
     
     if(selectedInstitution){} //get a list of department
@@ -29,13 +37,11 @@ const SearchCourse = () => {
     if(selectedProgram){} // get a list of course by program
     const listProgram = <option value='PBD-CSIS'>PBD-Computer Studies and Information Systems</option>
 
-    const listCourse = coursesData.flatMap(programCourses =>
-        programCourses.map(course => (
+    const listCourse = courseListOption.map(course => (
             <option key={course.id} id={course.id} value={course.id}>
-                {course.code} - {course.title}
+                {course.code} - {course.name}
             </option>
-        ))
-    );
+        ));
 
     const allCourses = () => {
         return (
