@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import CourseTree from '../components/courseTree'
 import Container from 'react-bootstrap/Container'
@@ -12,36 +12,46 @@ const SearchCourse = () => {
     const [coursesData, setCoursesData] = useState([]);
     const [selectedInstitution, setSelectedInstitution] = useState('');
     const [selectedDepartment, setSelectedDepartment] = useState('');
-    const [selectedProgram, setSelectedProgram] = useState('');
     const [selectedCourseId, setSelectedCourseId] = useState('');
-    useEffect(() => {
-        const loadAllCoursesInfo = async () => {
-            const response = await axios.get('courses');
-            const coursesInfo = response.data;
-            setCoursesData(coursesInfo);
-        }
-        const loadCoursesList = async () => {
-            const res = await axios.get('courses/list');
-            const listData = res.data;
-            setCourseListOption(listData);
-        }
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-        loadAllCoursesInfo();
-        loadCoursesList();
-    }, [])
-    
-    if(selectedInstitution){} //get a list of department
+    if (selectedInstitution) { } //get a list of department
     const listInstitution = <option value="DouglasCollege">Douglas College</option>
-    if(selectedDepartment){} // get a list of program
+    if (selectedDepartment) { } // get a list of program
     const listDepartment = <option value='CBA'>Commerce and Business Administration</option>
-    if(selectedProgram){} // get a list of course by program
-    const listProgram = <option value='PBD-CSIS'>PBD-Computer Studies and Information Systems</option>
-
+    const listSubject = <option value="CSIS">Computer Studies and Information Systems</option>
     const listCourse = courseListOption.map(course => (
-            <option key={course.id} id={course.id} value={course.id}>
-                {course.code} - {course.name}
-            </option>
-        ));
+        <option key={course.id} id={course.id} value={course.id}>
+            {course.code} - {course.name}
+        </option>
+    ));
+
+    const handleSubjectChange = async (e) => {
+        const subjectId = e.target.value;
+        setLoading(true);
+        setError(null);
+        if (!subjectId) {
+            setCoursesData([]);
+            setLoading(false);
+            return;
+        }
+        try {
+            // const response = await axios.get(`courses/${subjectId}`);
+            const coursesResponse = await axios.get(`courses`);
+            setCoursesData(coursesResponse.data);
+
+            // const res = await axios.get(`courses/list/${subjectId}`);
+            const listResponse = await axios.get(`courses/list`);
+            const listData = listResponse.data;
+            setCourseListOption(listData);
+        } catch (err) {
+            setError('Failed to fetch courses. Please try again.');
+            console.error('Error fetching courses:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const allCourses = () => {
         return (
@@ -90,27 +100,29 @@ const SearchCourse = () => {
                         controlId='department'
                         label='Department'
                         name='department'
-                        onChange={e=>setSelectedDepartment(e.target.value)}
+                        onChange={e => setSelectedDepartment(e.target.value)}
                         options={listDepartment}
                     />
                     <SelectFormGroup
-                        controlId='program'
-                        label='Program'
-                        name='program'
-                        onChange={e=>setSelectedProgram(e.target.value)}
-                        options={listProgram}
+                        controlId="subject"
+                        label="Subject"
+                        name="subject"
+                        onChange={handleSubjectChange}
+                        options={listSubject}
                     />
                     <SelectFormGroup
                         controlId="course"
                         label="Course"
                         name='courseId'
-                        onChange={e=>setSelectedCourseId(e.target.value)}
+                        onChange={e => setSelectedCourseId(e.target.value)}
                         options={listCourse}
                     />
                 </Form>
             </Container>
-            
+
             <br />
+            {loading && <p>loading...</p>}
+            {error && <p>error</p>}
             <Container className="horizontal-scroll">
                 <Row style={{ display: 'inline-flex', width: 'auto' }}>
                     {selectedCourseId === "" ? allCourses() : aCourse()}
