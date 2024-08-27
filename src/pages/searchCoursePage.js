@@ -34,6 +34,8 @@ const SearchCourse = () => {
         if (!subjectId) {
             setCoursesData([]);
             setLoading(false);
+            setCourseListOption([]);
+            setSelectedCourseId('');
             return;
         }
         try {
