@@ -1,10 +1,12 @@
 .custom-nav-link {
-    margin-right: 20px;
-    transition: background-color 0.3s ease;
-  }
+  margin-right: 1rem;
+  transition: color 0.5s ease-in-out,background-color 0.5s ease-in-out,border-color 0.5s ease-in-out !important;
+}
 
 .custom-nav-link:hover {
-    background-color: #b7b7b7;
-  }
+  background-color: #b7b7b7;
+}
 
-
+.navbar-nav {
+  display: inline !important;
+}

@@ -12,10 +12,10 @@ const NavBar = () => {
     <Navbar data-bs-theme="light" expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand as={Link} to="/">{ SITENAME }</Navbar.Brand>
-        <Nav className="justify-content-end">
-            <Nav.Link className="custom-nav-link" as={Link} to="/">Home</Nav.Link>
-            <Nav.Link className="custom-nav-link" as={Link} to="/search">Course</Nav.Link>
-            <Nav.Link className="custom-nav-link" as={Link} to="/about">About Us</Nav.Link>
+        <Nav>
+            <Nav.Link className="custom-nav-link d-inline-block" as={Link} to="/">Home</Nav.Link>
+            <Nav.Link className="custom-nav-link d-inline-block" as={Link} to="/search">Course</Nav.Link>
+            <Nav.Link className="custom-nav-link d-inline-block" as={Link} to="/about">About Us</Nav.Link>
             <Button variant="warning" as={Link} to="/login">Login</Button>
         </Nav>
       </Container>
