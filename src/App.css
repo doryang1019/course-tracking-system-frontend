@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+.about-us {
+  text-align: left;
+  margin-bottom: 1.5rem !important;
+}
+
+.dots {
+  display: inline-block;
+  position: relative;
+  font-size: 1.5em;
+}
+
+.dots::after {
+  content: '.';
+  position: absolute;
+  animation: dots 1.5s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% {
+      content: '';
+  }
+  40%, 60% {
+      content: '.';
+  }
+  80%, 100% {
+      content: '..';
+  }
+}

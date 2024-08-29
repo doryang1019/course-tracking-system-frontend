@@ -54,7 +54,7 @@ const CourseTree = ({ id, courseTreeById }) => {
                             ))}
                 </Container>
             ) : (
-                childIds.length > 0 && (
+                childIds.length === 1 && (
                     <>
                         {childIds.map(childId => (
                             <CourseTree

@@ -123,7 +123,7 @@ const SearchCourse = () => {
             </Container>
 
             <br />
-            {loading && <p>loading...</p>}
+            {loading && <p>Loading<span className="dots">.</span></p>}
             {error && <p>error</p>}
             <Container className="horizontal-scroll">
                 <Row style={{ display: 'inline-flex', width: 'auto' }}>
