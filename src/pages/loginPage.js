@@ -53,12 +53,14 @@ const LoginPage = () => {
                             </Col>
                         </Form.Group>
 
-                        <Row>
-                            <Col><Button variant="link" as={Link} to="/forget">Forget Password?</Button></Col>
+                        <Row style={{width: "100%"}}>
+                            <Col className='d-flex justify-content-end'><Button variant="link" as={Link} to="/forget">Forget Password?</Button></Col>
                         </Row>
-                        <Row className="align-content-right">
-                            <Col className="align-item-right" sm={3}><Button variant="warning" as={Link} to="/signup">Sign Up</Button></Col>
-                            <Col className="align-item-right" sm={3}><Button variant="success" type='submit' >Login</Button></Col>
+                        <Row style={{width:"100%"}}>
+                            <Col className="d-flex justify-content-end" sm={3} style={{width: "100%"}}>
+                            <Button className="m-1" variant="warning" as={Link} to="/signup">Sign Up</Button>
+                            <Button className="m-1" variant="success" type='submit' >Login</Button>
+                            </Col>
                         </Row>
                     </Form>
                 </Card.Body>
